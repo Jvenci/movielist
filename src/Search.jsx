@@ -16,8 +16,8 @@ class Search extends React.Component {
     return (
       <div className="search">
         <form>
-          <input type="form" placeholder="Movie Title" onChange={(e) => this.handleSearchText(e)}></input>
-          <button type="submit" onClick={(e) => this.props.handleSubmit(e, this.state.movieTitle)}>GO!</button>
+          <input type="form" placeholder="Search Movie Title" onChange={e => this.handleSearchText(e)}></input>
+          <button type="submit" onClick={e => this.props.handleSubmit(e, this.state.movieTitle)}>GO!</button>
         </form>
       </div>
     )
