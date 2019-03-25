@@ -8,7 +8,13 @@ const MovieList = (props) => {
     if (userSearch) {
       return movie.title.includes(userSearch) ? <div className="movie" key={index}>{movie.title}</div> : []
     } else {
-      return <div className="movie" key={index}>{movie.title}</div>
+      return (
+        <div className="movie" key={index} >
+          <div>{movie.title}</div>
+          <input className="checkbox" type="Checkbox" id={index} onClick={(e) => this.props.handleWatchedToggle(e, index)}></input>
+          <label>Watched</label>
+        </div>
+      )
     }
   })
 

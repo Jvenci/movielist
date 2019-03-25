@@ -12,35 +12,41 @@ class App extends React.Component {
       movies: [],
       search: ''
     }
+    this.handleWatchedToggle = this.handleMovieListEntry.bind(this)
   }
 
   handleMovieListEntry (e, value) {
     e.preventDefault()
     if (this.state.movies.length === 0) {
-      this.setState({ movies: [{ title: value }] })
-    } else {
-      for (var i = 0; i < this.state.movies.length; i++) {
-        if (this.state.movies[i].title === value) {
-          alert('That movie is already on the list!')
-        } else {
-          const newState = [...this.state.movies, { title: value }]
-          this.setState({ movies: newState })
-        }
+      this.setState({ movies: [{ title: value, hasWatched: false }] })
+    }
+    for (var i = 0; i < this.state.movies.length; i++) {
+      if (this.state.movies[i].title === value) {
+        alert('That movie is already on the list!')
+        break
+      } else {
+        const newState = [...this.state.movies, { title: value, hasWatched: false }]
+        this.setState({ movies: newState })
       }
     }
   }
 
   handleSubmit (e, value) {
     e.preventDefault()
-    // console.log(e.target.value)
     this.setState({ search: value })
+  }
+
+  handleWatchedToggle (key) {
+    const newState = [...this.state.movies]
+    newState[key].hasWatched ? newState[key].hasWatched = false : newState[key].hasWatched = true
+    this.setState({ movies: newState })
   }
   render () {
     return (
       <div>
         <MovieListEntry handleMovieListEntry={this.handleMovieListEntry.bind(this)} />
         <Search handleSubmit={this.handleSubmit.bind(this)} />
-        <MovieList movies={this.state} />
+        <MovieList movies={this.state} handleWatchedToggle={this.handleWatchedToggle} />
       </div>
     )
   }
